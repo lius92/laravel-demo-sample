@@ -10,9 +10,14 @@ class UserController extends Controller
 {
     public function create()
     {
+        //用户注册页面 直接渲染注册表单视图
         return view('users.create');
     }
 
+    /**
+     * @param User $user
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show(User $user)
     {
         return view('users.show', compact('user'));
@@ -33,6 +38,8 @@ class UserController extends Controller
             'email' => $request->email,
             'password' => bcrypt($request->password)
         ]);
+
+        Auth::login($user);
 
         session()->flash('success', '注册成功');
 
