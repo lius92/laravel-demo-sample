@@ -9,6 +9,7 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    //指定表名字
     protected $table = 'users';
 
     /**
