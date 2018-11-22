@@ -20,6 +20,8 @@ class SessionsController extends Controller
             'password' => 'required'
         ]);
 
+        //attempt 方法会接收一个数组来作为第一个参数，
+        //该参数提供的值将用于寻找数据库中的用户数据
         if (Auth::attempt($credentials, $request->has('remember'))) {
             //登陆成功
             session()->flash('success', '欢迎回来');
