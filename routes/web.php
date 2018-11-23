@@ -6,6 +6,7 @@ Route::get('/about', 'StaticPagesController@about')->name('about');
 
 Route::get('signup', 'UserController@create')->name('signup');
 Route::resource('users', 'UserController');
+Route::get('singup/confirm/{token}','UserController@confirmEmail')->name('confirm_email');
 
 Route::get('login', 'SessionsController@create')->name('login');
 Route::post('login', 'SessionsController@store')->name('login');

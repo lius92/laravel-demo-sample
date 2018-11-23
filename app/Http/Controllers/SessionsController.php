@@ -31,10 +31,15 @@ class SessionsController extends Controller
         //attempt 方法会接收一个数组来作为第一个参数，
         //该参数提供的值将用于寻找数据库中的用户数据
         if (Auth::attempt($credentials, $request->has('remember'))) {
-            //登陆成功
-            session()->flash('success', '欢迎回来');
-            //intended 跳转上一次访问的页面
-            return redirect()->intended(route('users.show', [Auth::user()]));
+            if(Auth::user()->activated) {
+                //登陆成功
+                session()->flash('success', '欢迎回来');
+                //intended 跳转上一次访问的页面
+                return redirect()->intended(route('users.show', [Auth::user()]));
+            } else {
+                session()->flash('warning', '你的账号未激活，请检查邮箱中的注册邮件进行激活。');
+                return redirect('/');
+            }
         } else {
             session()->flash('danger', '登陆失败,用户不存在或者密码不正确');
             return redirect()->back();
